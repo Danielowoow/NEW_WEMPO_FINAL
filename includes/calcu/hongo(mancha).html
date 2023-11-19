@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora de Recetas para Tratamiento de Hongos (Mancha)</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 20px;
+        }
+
+        h2 {
+            color: #333;
+        }
+
+        label {
+            display: block;
+            margin-top: 10px;
+        }
+
+        input, select, button {
+            margin-top: 5px;
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            cursor: pointer;
+        }
+
+        #resultado {
+            margin-top: 20px;
+            border: 1px solid #ddd;
+            padding: 20px;
+            text-align: left;
+        }
+
+        @media screen and (max-width: 600px) {
+            input, select, button {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h2>Calculadora de Recetas para Tratamiento de Hongos (Mancha)</h2>
+
+    <label for="area">Área de terreno (m²):</label>
+    <input type="number" id="area" placeholder="Ingresa el área en m²">
+
+    <label for="receta">Selecciona una receta:</label>
+    <select id="receta">
+        <option value="1">Té de Ortiga</option>
+        <option value="2">Caldo de Ajo</option>
+        <option value="3">Caldo de Neem</option>
+        <option value="4">BIOL Receta 1</option>
+        <option value="5">BIOL Receta 2</option>
+        <option value="6">Bicarbonato de Sodio</option>
+        <option value="7">Ajo</option>
+        <option value="8">Cola de Caballo</option>
+        <option value="9">Vinagre</option>
+        <option value="10">Té de Neem</option>
+        <option value="11">Leche</option>
+    </select>
+
+    <button onclick="calcularReceta()">Calcular</button>
+
+    <div id="resultado"></div>
+
+    <script>
+        function calcularReceta() {
+            // Obtener el área y la receta seleccionada
+            var area = document.getElementById("area").value;
+            var receta = document.getElementById("receta").value;
+
+            // Definir el volumen o peso y el alcance para cada receta
+            var volumenPorReceta = getVolumenPorReceta(receta); // Litros
+            var alcancePorReceta = getAlcancePorReceta(receta); // m²
+
+            // Calcular la cantidad de receta necesaria
+            var cantidadReceta = (area / alcancePorReceta) * volumenPorReceta;
+
+            // Obtener los ingredientes de la receta seleccionada
+            var ingredientes = getIngredientesPorReceta(receta, area);
+
+            // Mostrar el resultado
+            var resultado = document.getElementById("resultado");
+            resultado.innerHTML = "<p>Para tratar " + area + " m², necesitas aproximadamente " + cantidadReceta.toFixed(2) + " litros de la Receta " + receta + ".</p><p>Ingredientes necesarios: " + ingredientes + "</p>";
+        }
+
+        function getVolumenPorReceta(receta) {
+            var volumenesPorReceta = {
+                "1": 20,
+                "2": 3.90,
+                "3": 40,
+                "4": 10,
+                "5": 10,
+                "6": 1,
+                "7": 1,
+                "8": 1,
+                "9": 1.1,
+                "10": 1,
+                "11": 1
+            };
+            return volumenesPorReceta[receta];
+        }
+
+        function getAlcancePorReceta(receta) {
+            var alcancesPorReceta = {
+                "1": 100,
+                "2": 100,
+                "3": 100,
+                "4": 10,
+                "5": 10,
+                "6": 100,
+                "7": 50,
+                "8": 25,
+                "9": 100,
+                "10": 50,
+                "11": 100
+            };
+            return alcancesPorReceta[receta];
+        }
+
+        function getIngredientesPorReceta(receta, area) {
+            // Ingredientes base sin incremento
+            var ingredientesBase = {
+                "1": "5 tazas de hojas de ortiga frescas (equivalentes a <span id='cantidadOrtiga'>200</span> gramos), 20 litros de agua.",
+                "2": "1 cabeza de ajo (aproximadamente <span id='cantidadAjo'>10</span> dientes), 1 galón de agua.",
+                "3": "2,5 kg de hojas de neem frescas o secas, 40 litros de agua.",
+                "4": "2,5 kg de estiércol de vaca, 0,5 kg de chancaca, 100 g de levadura granulada, 1 litro de leche, 1 kg de hojas picadas de leguminosa, 0,5 kg de ceniza.",
+                "5": "7,5 litros de agua, 1,25 kg de estiércol de vaca, 0,25 kg de chancaca, 0,5 litros de leche, 0,5 kg de hojas picadas de leguminosa.",
+                "6": "2 cucharadas de bicarbonato de sodio, 1 litro de agua.",
+                "7": "5 dientes de ajo, 1 litro de agua, 1 cucharada de jabón líquido.",
+                "8": "100 gramos de cola de caballo, 1 litro de agua, 1 cucharada de jabón líquido.",
+                "9": "1 parte de vinagre, 10 partes de agua.",
+                "10": "5 hojas de neem, 1 litro de agua.",
+                "11": "1 litro de leche, 1 cucharada de jabón líquido."
+            };
+
+            // Calcular incremento para los ingredientes basados en el área ingresada
+            var factorIncremento = area / 100;
+
+            // Generar lista de ingredientes incrementados
+            var ingredientesIncrementados = ingredientesBase[receta].replace(/(\d+)/g, function(match) {
+                return parseInt(match) * factorIncremento;
+            });
+
+            // Actualizar las cantidades específicas de ortiga y ajo
+            ingredientesIncrementados = actualizarCantidadesOrtigaAjo(ingredientesIncrementados, factorIncremento);
+
+            return ingredientesIncrementados;
+        }
+
+        function actualizarCantidadesOrtigaAjo(ingredientes, factorIncremento) {
+            // Actualizar la cantidad de ortiga
+            var cantidadOrtiga = Math.round(200 * factorIncremento);
+            ingredientes = ingredientes.replace(/<span id='cantidadOrtiga'>\d+<\/span>/, "<span id='cantidadOrtiga'>" + cantidadOrtiga + "</span>");
+
+            // Actualizar la cantidad de ajo
+            var cantidadAjo = Math.round(10 * factorIncremento);
+            ingredientes = ingredientes.replace(/<span id='cantidadAjo'>\d+<\/span>/, "<span id='cantidadAjo'>" + cantidadAjo + "</span>");
+
+            return ingredientes;
+        }
+    </script>
+</body>
+</html>

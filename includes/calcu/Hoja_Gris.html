@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora de Recetas para Hoja Gris</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 20px;
+        }
+
+        h2 {
+            color: #333;
+        }
+
+        label {
+            display: block;
+            margin-top: 10px;
+        }
+
+        input, select, button {
+            margin-top: 5px;
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            cursor: pointer;
+        }
+
+        #resultado {
+            margin-top: 20px;
+            border: 1px solid #ddd;
+            padding: 20px;
+            text-align: left;
+        }
+
+        @media screen and (max-width: 600px) {
+            input, select, button {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h2>Calculadora de Recetas para Hoja Gris</h2>
+
+    <label for="area">Área de terreno (m²):</label>
+    <input type="number" id="area" placeholder="Ingresa el área en m²">
+
+    <label for="receta">Selecciona una receta:</label>
+    <select id="receta">
+        <option value="7">Solución 1 (Hoja Gris)</option>
+        <option value="8">Solución 2 (Hoja Gris)</option>
+        <option value="9">Solución 3 (Hoja Gris)</option>
+        <option value="30">Solución 4 (Hoja Gris)</option>
+        <option value="31">Solución 5 (Hoja Gris)</option>
+        <!-- Agrega las opciones para las demás recetas -->
+    </select>
+
+    <button onclick="calcularReceta()">Calcular</button>
+
+    <div id="resultado"></div>
+
+    <script>
+        function calcularReceta() {
+            // Obtener el área y la receta seleccionada
+            var area = document.getElementById("area").value;
+            var receta = document.getElementById("receta").value;
+
+            // Definir el volumen o peso y el alcance para cada receta
+            var volumenPorReceta = 20.1; // Litros
+            var alcancePorReceta = 200; // m²
+
+            // Calcular la cantidad de receta necesaria
+            var cantidadReceta = (area / alcancePorReceta) * volumenPorReceta;
+
+            // Calcular la proporción de ingredientes
+            var proporcionIngredientes = cantidadReceta / volumenPorReceta;
+
+            // Definir los ingredientes para cada receta
+            var ingredientesPorReceta = {
+                "7": (proporcionIngredientes * 100).toFixed(2) + " ml de vinagre blanco, " + (proporcionIngredientes * 20).toFixed(2) + " litros de agua.",
+                "8": (proporcionIngredientes * 100).toFixed(2) + " g de harina de neem, " + (proporcionIngredientes * 20).toFixed(2) + " litros de agua.",
+                "9": (proporcionIngredientes * 100).toFixed(2) + " g de azufre en polvo, " + (proporcionIngredientes * 20).toFixed(2) + " litros de agua.",
+                "30": (proporcionIngredientes * 100).toFixed(2) + " g de hojas de pepino, " + (proporcionIngredientes * 20).toFixed(2) + " litros de agua.",
+                "31": (proporcionIngredientes * 100).toFixed(2) + " g de hojas de berenjena, " + (proporcionIngredientes * 20).toFixed(2) + " litros de agua."
+                // Agrega las demás recetas con sus ingredientes
+            };
+
+            // Obtener los ingredientes de la receta seleccionada
+            var ingredientes = ingredientesPorReceta[receta];
+
+            // Mostrar el resultado
+            var resultado = document.getElementById("resultado");
+            resultado.innerHTML = "<p>Para tratar " + area + " m², necesitas aproximadamente " + cantidadReceta.toFixed(2) + " litros de la Receta " + receta + ".</p><p>Ingredientes necesarios: " + ingredientes + "</p>";
+        }
+    </script>
+</body>
+</html>

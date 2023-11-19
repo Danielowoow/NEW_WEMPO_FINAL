@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora de Recetas para Rancha</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 20px;
+        }
+
+        h2 {
+            color: #333;
+        }
+
+        label {
+            display: block;
+            margin-top: 10px;
+        }
+
+        input, select, button {
+            margin-top: 5px;
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            cursor: pointer;
+        }
+
+        #resultado {
+            margin-top: 20px;
+            border: 1px solid #ddd;
+            padding: 20px;
+            text-align: left;
+        }
+
+        @media screen and (max-width: 600px) {
+            input, select, button {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h2>Calculadora de Recetas para Rancha</h2>
+
+    <label for="area">Área de terreno (m²):</label>
+    <input type="number" id="area" placeholder="Ingresa el área en m²">
+
+    <label for="receta">Selecciona una receta:</label>
+    <select id="receta">
+        <option value="1">Receta 1</option>
+        <option value="2">Receta 2</option>
+        <option value="3">Receta 3</option>
+        <option value="4">Receta 4</option>
+        <option value="5">Receta 5</option>
+        <option value="6">Receta 6</option>
+        <option value="10">Receta 10</option>
+        <option value="11">Receta 11</option>
+        <option value="12">Receta 12</option>
+        <option value="13">Receta 13</option>
+        <option value="14">Receta 14</option>
+        <option value="15">Receta 15</option>
+        <option value="16">Receta 16</option>
+        <option value="17">Receta 17</option>
+        <option value="18">Receta 18</option>
+        <option value="19">Receta 19</option>
+        <option value="20">Receta 20</option>
+        <option value="21">Receta 21</option>
+        <option value="22">Receta 22</option>
+        <option value="23">Receta 23</option>
+        <option value="24">Receta 24</option>
+        <option value="25">Receta 25</option>
+        <option value="26">Receta 26</option>
+        <option value="27">Receta 27</option>
+        <option value="28">Receta 28</option>
+        <option value="29">Receta 29</option>
+    </select>
+
+    <button onclick="calcularReceta()">Calcular</button>
+
+    <div id="resultado"></div>
+
+    <script>
+        function calcularReceta() {
+            // Obtener el área y la receta seleccionada
+            var area = document.getElementById("area").value;
+            var receta = document.getElementById("receta").value;
+
+            // Definir el volumen o peso y el alcance para cada receta
+            var volumenPorReceta = 20.1; // Litros
+            var alcancePorReceta = 200; // m²
+
+            // Calcular la cantidad de receta necesaria
+            var cantidadReceta = (area / alcancePorReceta) * volumenPorReceta;
+
+            // Definir los ingredientes para cada receta
+            var ingredientesPorReceta = {
+                "1": "10 dientes de ajo, 20 litros de agua.",
+                "2": "5 cebollas picadas, 20 litros de agua.",
+                "3": "1 kg de ruda, 20 litros de agua.",
+                "4": "1 kg de ortiga, 20 litros de agua.",
+                "5": "100 g de cal viva, 20 litros de agua.",
+                "6": "100 g de bicarbonato de sodio, 20 litros de agua.",
+                "10": "100 g de canela en polvo, 20 litros de agua.",
+                "11": "100 g de cúrcuma en polvo, 20 litros de agua.",
+                "12": "100 g de té negro, 20 litros de agua.",
+                "13": "100 g de café molido, 20 litros de agua.",
+                "14": "100 g de ceniza de madera, 20 litros de agua.",
+                "15": "100 g de cáscaras de huevo molidas, 20 litros de agua.",
+                "16": "100 g de corteza de pino, 20 litros de agua.",
+                "17": "100 g de hojas de eucalipto, 20 litros de agua.",
+                "18": "100 g de flores de manzanilla, 20 litros de agua.",
+                "19": "100 g de hojas de menta, 20 litros de agua.",
+                "20": "100 g de romero, 20 litros de agua.",
+                "21": "100 g de hojas de ortiga, 20 litros de agua.",
+                "22": "100 g de hojas de diente de león, 20 litros de agua.",
+                "23": "100 g de hojas de salvia, 20 litros de agua.",
+                "24": "100 g de hojas de tomillo, 20 litros de agua.",
+                "25": "100 g de hojas de albahaca, 20 litros de agua.",
+                "26": "100 g de flores de caléndula, 20 litros de agua.",
+                "27": "100 g de flores de tomate, 20 litros de agua.",
+                "28": "100 g de hojas de lechuga, 20 litros de agua.",
+                "29": "100 g de hojas de espinaca, 20 litros de agua."
+            };
+
+            // Obtener los ingredientes de la receta seleccionada
+            var ingredientes = ingredientesPorReceta[receta];
+
+            // Mostrar el resultado
+            var resultado = document.getElementById("resultado");
+            resultado.innerHTML = "<p>Para tratar " + area + " m², necesitas aproximadamente " + cantidadReceta.toFixed(2) + " litros de la Receta " + receta + ".</p><p>Ingredientes necesarios: " + ingredientes + "</p>";
+        }
+    </script>
+</body>
+</html>
